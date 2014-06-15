@@ -1,7 +1,9 @@
 "use strict";
 
   var milisec = 0,
-      timer;
+      timer,
+      inputMin = "",
+      inputSec = "";
 
   function format ( val ) {
     return val > 9 ? val : "0" + val;
@@ -11,7 +13,6 @@ $(document).ready(function(){
 
   $("#minutes").on("click", function(){
 
-    var inputMin = "";
     var value = $(this).val();
 
     if(!isNaN(parseInt(value,10))) {
@@ -22,7 +23,6 @@ $(document).ready(function(){
 
   $("#seconds").on("click", function(){
 
-    var inputSec = "";
     var value = $(this).val();
 
     if(!isNaN(parseInt(value,10))) {
@@ -34,8 +34,8 @@ $(document).ready(function(){
   $("#count-up").on("click", function(){
 
      var target_date = new Date().getTime() + milisec;
-     var minutes = 0,
-         seconds = 0,
+     var minutes,
+         seconds,
          current_date,
          seconds_left;
 
@@ -93,7 +93,7 @@ $(document).ready(function(){
 
     clearInterval(timer);
     var update = document.getElementById("timer");
-    update.innerHTML = 0 + " " + 0 + " : " + 0 + " " + 0;
+    update.innerHTML = "00 : 00";
   });
 
 });
