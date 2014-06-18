@@ -1,13 +1,18 @@
 "use strict";
 
 var zip = function() {
+
     var values = [].slice.apply(arguments);
-    //console.log(values);
+
     return values[0].map(function(_,i) {
       return values.map(function(arr){
         return arr[i];
       });
     });
+};
+
+var numericSort = function(a, b) {
+  return a - b;
 };
 
 var mult = function(arr){
@@ -32,12 +37,8 @@ var beerAndFries = function(info){
     }
   });
 
-  beerArr.sort(function(a, b){
-    return a - b;
-  });
-  friesArr.sort(function(a, b){
-    return a - b;
-  });
+  beerArr.sort(numericSort);
+  friesArr.sort(numericSort);
 
   var beerAndFries = zip(beerArr, friesArr),
       res = 0;
