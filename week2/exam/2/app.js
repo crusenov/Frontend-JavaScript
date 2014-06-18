@@ -2,8 +2,8 @@
 
   var milisec = 0,
       timer,
-      inputMin = "",
-      inputSec = "";
+      inputMin,
+      inputSec;
 
   function format ( val ) {
     return val > 9 ? val : "0" + val;
@@ -11,41 +11,26 @@
 
 $(document).ready(function(){
 
-  $("#minutes").on("click", function(){
-
-    var value = $(this).val();
-
-    if(!isNaN(parseInt(value,10))) {
-        inputMin += value;
-        milisec += 60000;
-      }
-  });
-
-  $("#seconds").on("click", function(){
-
-    var value = $(this).val();
-
-    if(!isNaN(parseInt(value,10))) {
-        inputSec += value;
-        milisec += 1000;
-      }
-  });
-
   $("#count-up").on("click", function(){
 
-     var target_date = new Date().getTime() + milisec;
+    inputMin = $("#minutes").val();
+    inputSec = $("#seconds").val();
+    milisec = inputMin * 60000 + inputSec * 1000;
+
+     var targetDate = new Date().getTime() + milisec;
      var minutes,
          seconds,
-         current_date,
-         seconds_left;
+         currentDate,
+         secondsLeft;
 
      function updateTimer() {
 
-      current_date = new Date().getTime() + milisec;
-      seconds_left = ( current_date - target_date ) / 1000;
+      currentDate = new Date().getTime() + milisec;
+      secondsLeft = ( currentDate - targetDate ) / 1000;
 
-      minutes = parseInt(seconds_left / 60);
-      seconds = parseInt(seconds_left % 60);
+
+      minutes = parseInt(secondsLeft / 60);
+      seconds = parseInt(secondsLeft % 60);
 
       var update = document.getElementById("timer");
       update.innerHTML = format(minutes) + " : " + format(seconds);
@@ -63,17 +48,23 @@ $(document).ready(function(){
 
   $("#count-down").on("click", function(){
 
-     var target_date = new Date().getTime() + milisec;
+    inputMin = $("#minutes").val();
+    inputSec = $("#seconds").val();
+    milisec = inputMin * 60000 + inputSec * 1000;
+
+     var targetDate = new Date().getTime() + milisec;
      var minutes,
-         seconds;
+         seconds,
+         currentDate,
+         secondsLeft;
 
      function updateTimer() {
 
-      var current_date = new Date().getTime();
-      var seconds_left = (target_date - current_date) / 1000;
+      currentDate = new Date().getTime();
+      secondsLeft = (targetDate - currentDate) / 1000;
 
-      minutes = parseInt(seconds_left / 60);
-      seconds = parseInt(seconds_left % 60);
+      minutes = parseInt(secondsLeft / 60);
+      seconds = parseInt(secondsLeft % 60);
 
       var update = document.getElementById("timer");
       update.innerHTML = format(minutes) + " : " + format(seconds);
