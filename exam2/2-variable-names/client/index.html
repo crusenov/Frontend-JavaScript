@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Variable Names</title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+
+    </div>
+
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/handlebars/handlebars.js"></script>
+    <script src="app.js"></script>
+
+    <script id="input-template" type="text/x-handlebars-template">
+      {{#each name}}
+          <input class="input-name" id="{{this.nameId}}" value="{{this.name}}" style="width: 50%;">
+          <button class="btn btn-sm btn-primary update" id="btn-{{this.nameId}}" disabled><strong>Update Name</strong></button>
+      {{/each}}
+    </script>
+
+</body>
+</html>
