@@ -1,19 +1,8 @@
-/* global require, console */
+/* global require, console*/
 "use strict";
 
 var data = require("./data");
-
-var groupBy = function(groupingFunction, arr) {
-  var res = {};
-  arr.forEach(function(x){
-    if(res[groupingFunction(x)]){
-      res[groupingFunction(x)].push(x);
-    }
-    else {
-      res[groupingFunction(x)] = [x];
-    }});
-  return res;
-};
+var _ = require("./node_modules/lodash/lodash.js");
 
 var studentInfo = function(students, id){
   for(var i in students){
@@ -23,20 +12,19 @@ var studentInfo = function(students, id){
   }
 };
 
-var duplicates = function(data) {
-
-  var groupedByDate = groupBy(function(st){
-    return st.fields.date;
-  }, data);
-
+var corruptedData = function(data){
   var dupl = [];
-  Object.keys(groupedByDate).forEach(function(date){
+  var groupedByDate = _.groupBy(data, function(item){
+    return item.fields.date;
+  });
+
+  _.keys(groupedByDate).forEach(function(date){
 
     var studentsForDate = [],
         students = groupedByDate[date];
 
-    students.forEach(function(x){
-      studentsForDate.push(x.fields.student);
+    students.forEach(function(item){
+      studentsForDate.push(item.fields.student);
     });
 
     var countLog = studentsForDate.reduce(function (acc, curr) {
@@ -58,7 +46,7 @@ var duplicates = function(data) {
   return dupl;
 };
 
-console.log(duplicates(data));
+console.log(corruptedData(data));
 
 
 
