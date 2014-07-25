@@ -46,7 +46,8 @@ var corruptedData = function(data){
   return dupl;
 };
 
-console.log(corruptedData(data));
+exports.corruptedData = corruptedData;
+//console.log(corruptedData(data));
 
 
 
