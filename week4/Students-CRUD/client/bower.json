@@ -1,0 +1,21 @@
+{
+  "name": "Students-CRUD",
+  "version": "0.0.0",
+  "homepage": "https://github.com/crusenov/Frontend-JavaScript",
+  "authors": [
+    "crusenov <crusenov@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.1.1",
+    "handlebars": "~1.3.0"
+  }
+}

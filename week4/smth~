@@ -1,0 +1,6 @@
+HTTP verbs --> CRUD
+
+1.GET  --> Read
+2.POST --> Create	
+3.PUT  --> Upgrate(POST)
+4.DELETE-> Delete
