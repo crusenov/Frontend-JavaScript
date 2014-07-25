@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas Triangle</title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<canvas id="canvas" width="600" height="350" style="border: 1px solid"></canvas>
+
+<body>
+
+    <div>
+        <strong>Select your favorite color:</strong><input id="color-input" type="color" name="favcolor"><br>
+        <button type="button" class="btn btn-primary" id="btn-clear-canvas">Clear Canvas</button>
+        <button type="button" class="btn btn-primary" id="btn-save-canvas">Save Image</button>
+        <select id="saved-images">
+
+        </select>
+        <button type="button" class="btn btn-primary" id="btn-load-canvas">
+        Load Image</button>
+    </div>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
