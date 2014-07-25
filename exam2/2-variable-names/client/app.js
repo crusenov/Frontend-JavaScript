@@ -37,21 +37,20 @@ var updateName = function(name, id){
 };
 
 $(document).ready(function() {
-
   listAllNames();
-});
 
-$(document).on("change", ".input-name", function(){
+  $(document).on("keyup", ".input-name", function(){
+    var name = $(this).val();
+    var id = $(this).attr("id");
+    $("#btn-" + id).removeAttr("disabled");
+  });
 
-  var name = $(this).val();
-  var id = $(this).attr("id");
-  $("#btn-" + id).removeAttr("disabled");
-
-  $("#btn-" + id).on("click", function(){
-
+  $(document).on("click", "button", function() {
+    var name = $(this).parent().find(".input-name").val();
     updateName(name, id);
   });
 });
+
 
 
 
