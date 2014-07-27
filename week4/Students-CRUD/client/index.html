@@ -37,7 +37,17 @@
       </div>
     </form>
 
-    <script id="list-table-template" type="text/x-handlebars-template"> <table>
+    <div class="table-container">
+
+    </div>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/handlebars/handlebars.js"></script>
+    <script src="app.js"></script>
+
+    <script id="list-table-template" type="text/x-handlebars-template">
+    <table id="student-table">
     <thead>
         <th>Name</th>
         <th>facultyNumber</th>
@@ -46,19 +56,13 @@
     <tbody>
         {{#each data}}
         <tr>
-            <td>{{this.name }}</td>
-            <td>{{this.facultyNumber}}</td>
-            <td>{{this.courses}}</a></td>
+            <td id="td-name">{{this.name }}</td>
+            <td id="td-fn">{{this.facultyNumber}}</td>
+            <td id="td-courses">{{this.courses}}<button class="btn-xs" id="btn-edit" >edit</button></td>
         </tr>
         {{/each}}
     </tbody>
     </table>
     </script>
-
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!--<script src="bower_components/lodash/dist/lodash.js"></script>-->
-    <script src="bower_components/handlebars/handlebars.js"></script>
-    <script src="app.js"></script>
 </body>
 </html>
