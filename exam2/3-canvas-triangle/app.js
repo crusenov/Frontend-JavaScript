@@ -1,14 +1,13 @@
-/*global $, console*/
+/*global $, console, prompt, Handlebars*/
 "use strict";
 
-var canvasWidth = $("#canvas").width();
-var canvasHeight = $("#canvas").height();
-var canvas = document.getElementById("canvas");
-var context = canvas.getContext("2d");
+var canvasWidth = $("#canvas").width(),
+    canvasHeight = $("#canvas").height(),
+    canvas = document.getElementById("canvas"),
+    context = canvas.getContext("2d");
 
 var trianglePoints = [],
     images = [],
-    name,
     imageToLoad,
     fillColor = "#000000";
 
@@ -30,34 +29,10 @@ function drawTriangle(pointA, pointB, pointC){
       context.fill();
 }
 
-var getImagesFromLS = function(){
-
-  for (var i = 0; i < localStorage.length; i++){
-    images.push(localStorage.key(i));
-  }
-};
-
-var loadSavedImages = function(){
-
-  images.forEach(function(name){
-      var html = ("<option value=" + name + ">" + name + "</option>");
-      $("#saved-images").append(html);
-    });
-};
-
-$(document).ready(function(){
-
-  getImagesFromLS();
-  loadSavedImages();
-
-  $(document).on("change", "#color-input", function(){
-    fillColor = this.value;
-  });
-
-  $(document).on("click", "#canvas", function(e){
-
-    var x;
-    var y;
+function clickCoordinate(e){
+  var x,
+      y,
+      point;
     if (e.pageX || e.pageY) {
       x = e.pageX;
       y = e.pageY;
@@ -69,14 +44,42 @@ $(document).ready(function(){
     x -= canvas.offsetLeft;
     y -= canvas.offsetTop;
 
-    var point = new Point(x, y, context);
+    point = new Point(x, y, context);
     trianglePoints.push(point);
 
     if(trianglePoints.length == 3){
       drawTriangle(trianglePoints[0], trianglePoints[1], trianglePoints[2]);
       trianglePoints = [];
     }
+}
 
+function getImagesFromLS() {
+    var saves = {} || JSON.parse(localStorage.saves);
+    Object.keys(saves).forEach(function(name) {
+      images.push({name: name});
+    });
+}
+
+var loadSavedImages = function(data){
+
+  var source = $("#save-template").html(),
+      template = Handlebars.compile(source),
+      context = {save: data};
+  $("#saved-images").append(template(context));
+};
+
+$(document).ready(function(){
+
+  getImagesFromLS();
+  loadSavedImages(images);
+
+  $(document).on("click", "#canvas", function(e){
+
+    clickCoordinate(e);
+  });
+
+  $(document).on("change", "#color-input", function(){
+    fillColor = this.value;
   });
 
   $(document).on("click", "#btn-clear-canvas", function(){
@@ -86,31 +89,37 @@ $(document).ready(function(){
   $(document).on("click", "#btn-save-canvas", function(){
 
     var name = prompt("Enter the picture name:");
-    var imgAsDataURL = canvas.toDataURL();
 
     try {
-        localStorage.setItem(name, imgAsDataURL);
+        if(!localStorage.saves){
+          localStorage.saves = JSON.stringify({});
+        }
+        var saves = JSON.parse(localStorage.saves);
+        saves[name] = canvas.toDataURL();
+        localStorage.saves = JSON.stringify(saves);
+        images.push({"name": name});
     }
     catch (e) {
         prompt("Storage failed: " + e);
     }
 
     $("#saved-images").empty();
-    loadSavedImages();
+    loadSavedImages(images);
   });
 
   $(document).on("click", "#saved-images", function(){
 
-    imageToLoad = $(this).val();
+    imageToLoad = this.value;
   });
 
   $(document).on("click", "#btn-load-canvas", function(){
 
     context.clearRect(0, 0, canvasWidth, canvasHeight);
-    var img = new Image();
+    var img = new Image(),
+        saves = JSON.parse(localStorage.saves);
     img.onload = function(){
       context.drawImage(img,0,0);
     };
-    img.src = localStorage.getItem(imageToLoad);
+    img.src = saves[imageToLoad];
   });
 });
