@@ -20,8 +20,16 @@
         Load Image</button>
     </div>
 
+    <script id="save-template" type="test/x-handlebars-template">
+        {{#each save}}
+            <option>{{this.name}}</option>
+        {{/each}}
+    </script>
+
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/handlebars/handlebars.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
+
 </body>
 </html>
