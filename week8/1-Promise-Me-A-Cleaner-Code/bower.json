@@ -1,0 +1,14 @@
+{
+  "name": "1-Promise-Me-A-Cleaner-Code",
+  "version": "0.0.0",
+  "homepage": "https://github.com/HackBulgaria/Frontend-JavaScript-1",
+  "authors": [
+    "Cvetan <crusenov@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "requirejs": "~2.1.14",
+    "q": "1.0.1"
+  }
+}
