@@ -1,33 +1,45 @@
 /* global require, console*/
 "use strict";
 
-var data = require("./data");
-var _ = require("./node_modules/lodash/lodash.js");
+var data = require("./data"),
+    _ = require("lodash");
 
 var studentInfo = function(students, id){
-  for(var i in students){
-    if(students[i].fields.student == id){
-      return students[i]
+
+  var res = [],
+      flag = 0;
+
+  Object.keys(students).forEach(function(item){
+    if(students[item].fields.student === id && flag === 0){
+      res.push(students[item]);
+      flag = 1;
     }
-  }
+  });
+  return res;
 };
 
 var corruptedData = function(data){
-  var dupl = [];
-  var groupedByDate = _.groupBy(data, function(item){
+
+  var dupl = [],
+      studentsForDate = [],
+      students = [],
+      countLog,
+      groupedByDate;
+
+  groupedByDate = _.groupBy(data, function(item){
     return item.fields.date;
   });
 
   _.keys(groupedByDate).forEach(function(date){
 
-    var studentsForDate = [],
-        students = groupedByDate[date];
+    studentsForDate = [];
+    students = groupedByDate[date];
 
     students.forEach(function(item){
       studentsForDate.push(item.fields.student);
     });
 
-    var countLog = studentsForDate.reduce(function (acc, curr) {
+    countLog = studentsForDate.reduce(function (acc, curr) {
       if (typeof acc[curr] == "undefined") {
         acc[curr] = 1;
       } else {
@@ -39,7 +51,7 @@ var corruptedData = function(data){
 
     for(var st in countLog){
       if(countLog[st] > 1){
-        dupl.push(studentInfo(students, st));
+        dupl.push(studentInfo(students, parseInt(st, 10)));
       }
     }
   });
@@ -47,7 +59,7 @@ var corruptedData = function(data){
 };
 
 exports.corruptedData = corruptedData;
-//console.log(corruptedData(data));
+console.log(corruptedData(data));
 
 
 
