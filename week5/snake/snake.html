@@ -24,16 +24,15 @@
     }
 
     var snake = (function(ctx){
-        var tail = [];
-        var head = new Point(4, 0, 10, ctx);
-        var ate = false;
+        var tail = [],
+            head = new Point(4, 0, 10, ctx),
+            ate = false,
+            direction = "right";
 
         [1, 2, 3].forEach(function(i){
             tail.push(new Point(i, 0, 10, ctx));
         })
         tail.push(head);
-
-        var direction = "right";
 
         var print = function(){
             tail.forEach(function(point){
@@ -43,6 +42,7 @@
 
         var changeDirection = function(dir){
             direction = dir;
+
         }
 
         var onFood = function(foodX, foodY){
