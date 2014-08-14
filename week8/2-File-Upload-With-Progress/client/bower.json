@@ -1,0 +1,14 @@
+{
+  "name": "FileUpload",
+  "version": "0.0.0",
+  "homepage": "https://github.com/crusenov/Frontend-JavaScript",
+  "authors": [
+    "Cvetan <crusenov@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "q": "1.0.1",
+    "requirejs": "~2.1.14"
+  }
+}
